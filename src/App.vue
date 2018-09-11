@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <p class="title">Vue.js Todo List</p>
+    <img alt="WordPress logo" src="./assets/logo.svg">
+    <p class="title">Ta Checklist WordPress</p>
     <todo-list />
   </div>
 </template>
@@ -25,8 +25,8 @@ export default {
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  color: #2c3e50;
-  font-family: Karla, sans-serif;
+  color: #212121;
+  font-family: Poppins, sans-serif;
   font-size: 16px;
   margin: 0;
 }
@@ -48,15 +48,13 @@ body {
 }
 
 #app {
-  max-width: 510px;
+  max-width: 960px;
   margin: 50px auto;
-  padding: 0 10px;
+  padding: 0 1rem;
 }
 
 img {
   display: block;
-  width: 80px;
-  height: 80px;
   margin: 0 auto 15px auto;
 }
 
