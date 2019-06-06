@@ -1,20 +1,27 @@
 <template>
-  <div class="container">
-    <div style="flex: 1;">
+  <div>
+    <h2>Step by Step</h2>
       <div class="todo-list">
         <!-- Loop Over All Todos -->
-        <div v-for="(todo, i) in todos" :key="i" class="list" :class="{completed: todo.completed}">
+        
+        <div v-for="(td, j) in todos" :key="'td-'+j" class="list" :class="{completed: td.completed, inter: j>6, advanced: j>10}">
+          
           <!-- Show Label -->
+          <span class="step">Step {{j}}</span>
           <label class="material-checkbox">
-            <input type="checkbox" v-model="todo.completed">
+            <input type="checkbox" v-model="td.completed">
             <span></span>
-            <div class="text" :class="{completed: todo.completed}">{{ todo.text }}</div>
-          </label>
-          <details v-if="todo.astuce">
-            <summary>Astuce</summary>
-            <p>{{todo.astuce}}</p>
-          </details>
-      </div>
+            <div class="text" :class="{completed: td.completed}" v-html="td.text"></div>
+          </label>          
+          <template v-for="child in td.children">
+             <details v-if="child.astuce">
+                <summary>Astuce</summary>
+                <div v-html="child.content"></div>
+              </details>
+              <div v-else v-html="child.content"></div>
+          </template>
+          
+      
       </div>
     </div>
     <div id="wapuu0" :class="currentWapuu === 0 ? 'active' : 'idle'"><img src="../assets/wapuu0.png"></div>
@@ -27,8 +34,9 @@
     <div id="wapuu7" :class="currentWapuu === 7 ? 'active' : 'idle'"><img src="../assets/wapuu7.png"></div>
     <div id="wapuu8" :class="currentWapuu === 8 ? 'active' : 'idle'"><img src="../assets/wapuu8.png"></div>
     <div id="wapuu9" :class="currentWapuu === 9 ? 'active' : 'idle'"><img src="../assets/wapuu9.png"></div>
+
     <footer>
-      <span>{{ remaining }} tâches à faire.</span>
+      <span>{{ remaining }} steps to go.</span>
     </footer>
   </div>
 </template>
@@ -37,14 +45,14 @@
 export default {
   name: "TodoList",
   mounted() {
-    if (localStorage.getItem('todos')) {
-      this.todos = JSON.parse(localStorage.getItem('todos'));
+    if (localStorage.getItem('pluginsteps')) {
+      this.todos = JSON.parse(localStorage.getItem('pluginsteps'));
     }
   },
   watch: {
     remaining: {
       handler(after, before) {
-        localStorage.setItem('todos', JSON.stringify(this.todos));
+        localStorage.setItem('pluginsteps', JSON.stringify(this.todos));
         if (after < before) {
           this.animate()
         }
@@ -55,68 +63,8 @@ export default {
     return {
       animationActive: 'idle',
       currentWapuu: -1,
-      todos: [
-        {
-          text: "Connecte-toi à ton tableau de bord",
-          astuce: "Dans ton navigateur ajoute /wp-admin/ à la fin de l'url dans la barre d'adresse"
-        },
-        {
-          text: "Assure-toi que le site et ton tableau de bord soient en français",
-          astuce: "Si ton tableau de bord est en anglais, va dans Settings > General"
-        },
-        {
-          text: "Assure-toi que ton site ne soit pas pour l'instant indexé par Google - c'est trop tôt pour cela - il n'est pas encore abouti",
-          astuce: "Rdv : Réglage - Lecture"
-        },
-        {
-          text: "Choisi un titre et slogan pour ton site",
-          astuce: "Rdv : Réglages - Général"
-        },
-        {
-          text: "Ajoute ton prénom, nom et adresse mail en tant qu'administrateur, et surtout change ton mot de passe !",
-          astuce: "Rdv : Utilisateurs > Votre profil"
-        },
-        {
-          text: "Installe une extension Gutenberg - c'est un éditeur moderne qui deviendra très très prochainement l'éditeur de WordPress par défault",
-          astuce: "Rdv : Extensions > Ajouter"
-        },
-        {
-          text: "Assure-toi que Gutenberg est bien activé",
-          astuce: "Rdv: Extensions > Extensions installées"
-        },
-        {
-          text: "Change le thème, regarde comment cela modifie la mise en page de ton contenu",
-          astuce: "Rdv: Thèmes. Tu pourras changer le thème à chaque moment !"
-        },
-        {
-          text: "Ajoute au nouvel article. Crée un article en rapport avec le sujet de ton site.",
-          astuce: "Rdv : Articles > Ajouter. Un article devrait posséder un titre, une catégorie, une image à la une, et bien évidemment son contenu principal. N'oublie pas de le publier ;)"
-        },
-        {
-          text: "Assure-toi d'avoir créé au moins 3 articles dans 2 catégories différentes",
-        },
-        {
-          text: "Crée une nouvelle page intitulée 'À propos' où tu te présenteras",
-          astuce: "Rdv : Pages > Ajouter"
-        },
-        {
-          text: "Ajoute une extension permettant d'avoir un formulaire de contact",
-          astuce: "Rdv : Extensions > Ajouter, et tape Contact Form dans la barre de recherche"
-        },
-        {
-          text: "Crée une nouvelle page intitulée 'Contacte-moi' et intègre le formulaire de contact",
-          astuce: "copie-colle un Shortcode"
-        },
-        {
-          text: "Assure-toi qu'en arrivant sur ton site, on peut naviguer vers les pages et articles que tu as créé",
-          astuce: "Rdv : Apparence > Menu"
-        },
-        {
-          text: "Trouve comment s'appellent les créatures qui t'accompagnent et qui traversent ton écran pendant ces tâches.",
-          astuce: "Google is your friend ;)"
-        }
-      ]
-    };
+      todos: this.getTodos(),
+    }
   },
 
   computed: {
@@ -128,8 +76,28 @@ export default {
   methods: {
     animate() {
       this.currentWapuu = Math.floor(Math.random()*15);
+    },
+    getTodos() {
+      const Items = document.getElementById("fulllist").children
+      const ItemsArray = Array.prototype.slice.call(Items)
+      let todos = new Array()
+      ItemsArray.forEach( (el, index) => {
+        todos.push(Array.prototype.slice.call(el.children).reduce( (acc, cur, i, array) => {
+          if (i===0) {
+            acc.text = cur.innerHTML
+          } else {
+            acc.children.push({
+              content: cur.innerHTML,
+              astuce: cur.classList.contains("astuce")
+            })
+          }
+          return acc;
+        }, {children: new Array(), completed: false}))
+      })
+      return todos
     }
   },
+
 
   directives: {
   }
@@ -137,6 +105,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .container {
   min-height: 300px;
   display: flex;
@@ -146,12 +116,11 @@ export default {
 footer {
   position: fixed;
   text-align: center;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
-  padding: 1rem;
-  font-size: 2rem;
-  background: #00739c;
+  padding: .5rem;
+  background: #41b883;
   color: #fff;
 }
 
@@ -161,34 +130,48 @@ footer {
 }
 
 .todo-list .list:hover {
-  border-bottom: 1px solid;
+  box-shadow: inset 0 0 0 2px #41b883, 0 5px 15px rgba(0,0,0,.15);
 }
 
 .todo-list .list {
+  position: relative;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px dashed;
+  box-shadow: inset 0 0 0 2px transparent, 0 5px 15px rgba(0,0,0,.15);
+  margin-bottom: 1rem;
+  transition: 0.4s;
 }
 .todo-list .list {
-  visibility: hidden;
-  opacity: 0;
+  display: none;
 }
 .todo-list .list:first-child,
 .todo-list .completed,
 .todo-list .completed + .list{
-  visibility: visible;
-  opacity: 1;
+  display: block;
 }
 .todo-list .list .text {
   margin: 6px 0;
   cursor: default;
   flex: 1;
+  transition: 0.4s;
 }
 
 .todo-list .list .text.completed {
-  text-decoration: line-through;
+  color: #41b883;
 }
 
+.todo-list .list.inter .text.completed {
+  color: mediumblue;
+}
+.todo-list .list.inter:hover {
+  box-shadow: inset 0 0 0 2px mediumblue, 0 5px 15px rgba(0,0,0,.15);
+}
+.todo-list .list.advanced .text.completed {
+  color: tomato;
+}
+.todo-list .list.advanced:hover {
+  box-shadow: inset 0 0 0 2px tomato, 0 5px 15px rgba(0,0,0,.15);
+}
 .input__div {
   margin: 6px 0;
   position: relative;
@@ -302,6 +285,24 @@ label {
   border-color: #41b883;
 }
 
+.inter .material-checkbox > input:checked + span::before {
+  border-color: mediumblue;
+  background-color: mediumblue;
+}
+
+.inter .material-checkbox > input:active + span::before {
+  border-color: mediumblue;
+}
+
+.advanced .material-checkbox > input:checked + span::before {
+  border-color: tomato;
+  background-color: tomato;
+}
+
+.advanced .material-checkbox > input:active + span::before {
+  border-color: tomato;
+}
+
 .material-checkbox > input:checked:active + span::before {
   border-color: transparent;
   background-color: rgba(0, 0, 0, 0.42);
@@ -328,19 +329,18 @@ label {
   opacity: 0;
 }
 .active, .idle {
-  width: 3rem;
-  height: 3rem;
+  width: 6rem;
+  height: 6rem;
   position: fixed;
   bottom: -10vh;
   left: -10vw;
-  z-index: -1;
 }
 .active {
   animation: fun 4s forwards;
 }
 
 .active img, .idle img {
-  width: 288px;
+  width: 100%;
 }
 @keyframes fun {
   0% {
@@ -353,5 +353,20 @@ label {
 }
 *:focus {
   outline: none;
+}
+.step {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #41b883;
+  padding: 4px;
+  color: white;
+  font-size: 60%;
+}
+.inter .step {
+  background: mediumblue;
+}
+.advanced .step {
+  background:tomato;
 }
 </style>
