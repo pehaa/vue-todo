@@ -5,7 +5,7 @@ module.exports = {
     sourceMap: true
   },
 
-  baseUrl: process.env.NODE_ENV === "production" ? "" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "" : "/",
   outputDir: "wpplugin-step-by-step",
   assetsDir: undefined,
   runtimeCompiler: undefined,

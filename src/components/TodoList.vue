@@ -13,12 +13,14 @@
             <span></span>
             <div class="text" :class="{completed: td.completed}" v-html="td.text"></div>
           </label>          
-          <template v-for="child in td.children">
+          <template v-for="(child, index) in td.children" >
+          <div :key="index">
              <details v-if="child.astuce">
                 <summary>Astuce</summary>
                 <div v-html="child.content"></div>
               </details>
               <div v-else v-html="child.content"></div>
+              </div>
           </template>
           
       
@@ -81,8 +83,8 @@ export default {
       const Items = document.getElementById("fulllist").children
       const ItemsArray = Array.prototype.slice.call(Items)
       let todos = new Array()
-      ItemsArray.forEach( (el, index) => {
-        todos.push(Array.prototype.slice.call(el.children).reduce( (acc, cur, i, array) => {
+      ItemsArray.forEach( (el) => {
+        todos.push(Array.prototype.slice.call(el.children).reduce( (acc, cur, i) => {
           if (i===0) {
             acc.text = cur.innerHTML
           } else {
