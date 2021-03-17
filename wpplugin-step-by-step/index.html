@@ -15,35 +15,35 @@
     <div id="fulllist">
       <!-- step 0 -->
       <div>
-          <p>Crée une instance WordPress en local</p>
+          <p>Utilise une instance de WordPress en local</p>
       </div>
 
       <!-- step 1 -->
       <div>
-        <p>Dans le dossier où WordPress installe ses extensions, ajoute un nouveau dossier <code>partenariat-simplon</code></p>
+        <p>Dans le dossier où WordPress installe ses extensions, ajoute un nouveau dossier <code>partenariat-campus</code></p>
         <div></div>
         <div class="more">
-          WordPress installe des plugins dans <code>wp-content/plugins/</code>
+          Où WordPress installe ses extensions ? WordPress installe des plugins dans <code>wp-content/plugins/</code>
         </div>
       </div>
 
       <!-- step 2 -->
       <div>
-        <p>Dans le dossier partenariat-simplon crée un nouveau fichier, appele-le <code>partenariat-simplon.php</code></p>
+        <p>Dans le dossier partenariat-campus crée un nouveau fichier, appele-le <code>partenariat-campus.php</code></p>
         <p>Il n'est pas obligatoire que le fichier soit nommé comme le dossier, mais c'est une convention très souvent respectée.</p>
       </div>
 
       <!-- step 3 -->
       <div>
         <p>Dans cette étape tu vas faire ce qu'on l'appele <em>déclarer le plugin.</em> </p>
-        <p>Il s'agit de renseigner le nom de ton plugin (obligatoire) ainsi que d'autre informations le concernant (auteur, version, descriptions, etc.) Suite à cela tu devrais l'appercevoir dans ton tableau de bord Extensions Installées. Tu peux trouver plus d'information par exemple dans <a href="https://openclassrooms.com/fr/courses/1891206-propulsez-votre-site-avec-wordpress/1892319-creer-des-plugins#r-1892278" target="_blank">un tuto sur OpenClassrooms</a></p>
+        <p>Tu va éditer le fichier <code>partenariat-campus.php</code>. Il s'agit de renseigner le nom de ton plugin ainsi que d'autre informations le concernant (auteur, version, descriptions, etc.) Tu peux trouver plus d'information par exemple dans <a href="https://openclassrooms.com/fr/courses/1891206-propulsez-votre-site-avec-wordpress/1892319-creer-des-plugins#r-1892278" target="_blank">un tuto sur OpenClassrooms</a></p>
         <div class="astuce">
           La version minimum de la déclaration d'un plugin est comme ceci :
           <code>
 <pre>
 &lt;?php
 /*
-Plugin Name: Partenariat Simplon
+Plugin Name: Partenariat Campus
 */
 </pre>    </code>
         </div>
@@ -51,13 +51,13 @@ Plugin Name: Partenariat Simplon
 
       <!-- step 4 -->
       <div>
-        <p>Vérifie que ton plugin est bien présent dans Extensions &gt; Extensions Installées</p>
+        <p>Suite à l'étape précédente tu devrais appercevoir ton plugin dans ton Tableau de Bord > Extensions Installées. Vérifie que ton plugin y est bien présent. Visite ton Dashboard &gt; Extensions Installées</p>
       </div>
     
       <!-- step 5 -->
       <div>
         <p>Rends ton plugin fonctionnel.</p>
-        <p>Ici, tu devrais ajouter un nouveau shortcode et définir ce qu'il affiche.</p>
+        <p>Ici, tu devrais <strong>enregistrer</strong> un nouveau shortcode et définir ce qu'il affiche.</p>
         <p><a href="https://karac.ch/blog/creer-ses-propres-shortcodes-wordpress" target="_blank">exemple</a></p>
         <div class="astuce">
           <p>Voici l'exemple d'un shortcode qui permet d'afficher un paragraphe
@@ -76,50 +76,31 @@ add_shortcode('helloworld', 'HelloWorldShortcode');
 
     <!-- step 6 -->
     <div>
-      <p>Vérifie que ton plugin fonctionne. Ajoute le shortcode <code>[partenariat-simplon]</code> dans un plusieurs articles.</p>
-      <p>Si cela fonctionne, bravo ! Tu viens de créer un extension WordPress. Si tu as envie de continuer, allons-y !</p>
-    </div>
-
-    <!-- step 7 -->
-    <div>
-      <p>Emballe ta fonction avec une condition <code>if ( ! function_exists( '..' )</code></p>
-      <p>C'est un ajustement qui te protégera contre la situation où le thème, ou un autre plugin déclare une fonction qui s'appelle exactement comme la tienne. Avec PHP ceci aurait fini en page blanche, erreur fatale, panique totale.</p>
-      <div class="astuce">
-        <p>Voici à quoi devrait ressembler ton code :</p>
-          <code>
-<pre>
-if ( ! function_exists( 'HelloWorldShortcode' ) ) {
-  function HelloWorldShortcode() {
-    return '&lt;p&gt;Hello World! I &amp;hearts; you!&lt;/p&gt;';
-  }
-}
-add_shortcode('helloworld', 'HelloWorldShortcode');
-</pre>
-          </code>
-      </div>
+      <p>Vérifie que ton plugin fonctionne. Ajoute le shortcode <code>[partenariat-campus]</code> dans plusieurs articles.</p>
+      <p>Si cela fonctionne, bravo ! Tu viens de créer un extension WordPress ! Si tu as envie de continuer, allons-y !</p>
     </div>
     <div>
-      <p>Ajoute une mise en page et un logo de simplon.</p>
-      <p>Dans le dossier de ton extension crée le ficher <code>style.css.</code> Ensuite ajoute un dossier <code>images.</code> Mets le logo de simplon dans le dossier images.</p>
+      <p>Ajoute une mise en page et un logo du campus.</p>
+      <p>Dans le dossier de ton extension crée le ficher <code>style.css.</code> Ensuite ajoute un dossier <code>images.</code> Mets le logo dans le dossier images.</p>
     </div>
     <div>
       <p>Charge le fichier style.css dans la partie head de la page</p>
       <code>
 <pre>
-function simplon_partenariat_style() {
-  wp_enqueue_style( 'simplon-partenariat', plugins_url( 'partenariat-simplon/style.css' ) );
+function partenariat_campus_style() {
+  wp_enqueue_style( 'partenariat-campus-stylesheet', plugins_url( 'partenariat-campus/style.css' ) );
 }
-add_action( 'wp_enqueue_scripts', 'simplon_partenariat_style' );
+add_action( 'wp_enqueue_scripts', 'partenariat_campus_style' );
 </pre>
       </code>
-    <p><code>plugins_url( 'partenariat-simplon/style.css' )</code><br> correspond à <br><code>http(s)://mon-adresse-du-site/wp-content/plugins/partenariat-simplon/style.css</code></p>
+    <p><code>plugins_url( 'partenariat-campus/style.css' )</code><br> correspond à <br><code>http(s)://mon-adresse-du-site/wp-content/plugins/partenariat-campus/style.css</code></p>
     </div>
     <div>
       <p>Ajoute une image</p>
       <p >Quelle est l'adresse to ton image ?</p>
-      <p class="astuce"><code>plugins_url( 'partenariat-simplon/images/logo.png' )</code><br> correspond à <br><code>http(s)://mon-adresse-du-site/wp-content/plugins/partenariat-simplon/images/logo.png</code></p>
+      <p class="astuce"><code>plugins_url( 'partenariat-campus/images/logo.png' )</code><br> correspond à <br><code>http(s)://mon-adresse-du-site/wp-content/plugins/partenariat-campus/images/logo.png</code></p>
     </div>
-    <div>
+   <!--  <div>
       <p>Et si on voulait pouvoir changer le contenu d'un shortcode via Customizer ? Dans ton plugin enregistre un nouveau champ de customizer.</p>
       <code>
 <pre>
@@ -178,7 +159,7 @@ add_shortcode( 'simplon-infoflash', 'simplonInfoflashShortcode' );
     </div>
     <div>
       <h2>Yay ! Bravo !</h2>
-    </div>
+    </div> -->
   </div>
     <!-- built files will be auto injected -->
   <script type="text/javascript" src="js/chunk-vendors.js"></script><script type="text/javascript" src="js/app.js"></script></body>

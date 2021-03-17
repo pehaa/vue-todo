@@ -9,17 +9,17 @@
       <div class="intro">
       <div class="container">
         <h2>La mise en situation</h2>
-        <p>Le Campus est le partenaire de votre client.</p>
-        <p>La direction de simplon.co souhaiterait que dans chaque nouvel article publié, on trouve la mention suivante :</p>
-        <blockquote>La publication de cet article est possible grâce à notre super partenaire <a href="https://simplon.co">simplon.co</a> - une entreprise de l’économie sociale et solidaire et un réseau de « fabriques » (écoles) qui propose des formations GRATUITES pour devenir développeur web.</blockquote>
-        <p>Ce texte devrait apparaître dans l’article, soit tout au début, soit vers la fin, soit quelque part au milieu. Son placement devrait varier d’un article à l’autre.</p>
+        <p>Le Campus Foderie de l'Image est le partenaire de votre client.</p>
+        <p>La direction du campus souhaiterait que dans chaque article publié, on trouve la mention suivante :</p>
+        <blockquote>La publication de cet article est possible grâce à notre partenaire <a href="https://www.campusfonderiedelimage.org/">Campus Fonderie de l'Image.</a> Le Campus forme aux métiers de la communication numérique, du design graphique et du management de projets multimédia.</blockquote>
+        <p>Ce texte devrait apparaître dans l’article, soit tout au début, soit vers la fin, soit quelque part au milieu. Son placement devrait varier d’un article à l’autre. Il faut prévoir une mise en page pour le mettre en avant. (Fond foncé, bordure, ombre portée, etc.) On devrait aussi afficher le logo du Campus.</p>
         <h2>Solution</h2>
-        <p>Tu as proposé au client une solution utilisant <em>un shortcode.</em> Le texte souhaité va apparaître partout où le shortcode <code>[partenariat-simplon]</code> est utilisé.</p>
-        <p>Ton extension va alors <strong>définir et activer</strong> un nouveau shortcode. Nous allons appeler notre extension <code>partenariat-simplon.</code></p>
+        <p>Tu as proposé au client une solution utilisant <em>un shortcode.</em> Le texte souhaité va apparaître partout où le shortcode <code>[partenariat-campus]</code> est utilisé.</p>
+        <p>Ton extension va alors <strong>définir et activer</strong> un nouveau shortcode. Nous allons appeler notre extension <code>partenariat-campus.</code></p>
       </div>
     </div>
       <div class="container">
-        <p><img src="./assets/scr-simplon.png" alt="screenshot"></p>
+        <!-- <p><img src="./assets/scr-simplon.png" alt="screenshot"></p> -->
         <todo-list />
       </div>
     </main>
