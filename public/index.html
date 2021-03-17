@@ -2,9 +2,8 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
@@ -15,38 +14,33 @@
     <div id="fulllist">
       <!-- step 0 -->
       <div>
-          <p>Utilise une instance de WordPress en local</p>
+          <p>Utilisez une instance de WordPress en local (par exemple, migrez <em>trello-shop</em> en local)</p>
       </div>
 
       <!-- step 1 -->
       <div>
-        <p>Dans le dossier où WordPress installe ses extensions, ajoute un nouveau dossier <code>partenariat-campus</code></p>
+        <p>Dans le dossier où WordPress installe ses extensions, ajoute un nouveau dossier <code>hide-flat-rate-woocommerce-addon</code></p>
         <div></div>
-        <div class="more">
-          Où WordPress installe ses extensions ? WordPress installe des plugins dans <code>wp-content/plugins/</code>
+        <div class="astuce">
+          Où WordPress installe ses extensions ? Dans <code>wp-content/plugins/</code>
         </div>
+      </div>
+
+      <div>
+        <p>Un peu de lecture préparatoire ? Par exemple <a href="https://wpformation.com/creer-plugin-wordpress/">ceci ?</a></p>
       </div>
 
       <!-- step 2 -->
       <div>
-        <p>Dans le dossier partenariat-campus crée un nouveau fichier, appele-le <code>partenariat-campus.php</code></p>
-        <p>Il n'est pas obligatoire que le fichier soit nommé comme le dossier, mais c'est une convention très souvent respectée.</p>
+        <p>Dans le dossier <code>hide-flat-rate-woocommerce-addon</code> crée un nouveau fichier, appele-le <code>hide-flat-rate-woocommerce-addon.php</code></p>
+        <p>C'est une convention de nommer le fichier principal du plugin comme le dossier.</p>
       </div>
 
       <!-- step 3 -->
       <div>
-        <p>Dans cette étape tu vas faire ce qu'on l'appele <em>déclarer le plugin.</em> </p>
-        <p>Tu va éditer le fichier <code>partenariat-campus.php</code>. Il s'agit de renseigner le nom de ton plugin ainsi que d'autre informations le concernant (auteur, version, descriptions, etc.) Tu peux trouver plus d'information par exemple dans <a href="https://openclassrooms.com/fr/courses/1891206-propulsez-votre-site-avec-wordpress/1892319-creer-des-plugins#r-1892278" target="_blank">un tuto sur OpenClassrooms</a></p>
-        <div class="astuce">
-          La version minimum de la déclaration d'un plugin est comme ceci :
-          <code>
-<pre>
-&lt;?php
-/*
-Plugin Name: Partenariat Campus
-*/
-</pre>    </code>
-        </div>
+        <p>Déclaration du plugin</p>
+        <p>Dans cette étape le fichier <code>hide-flat-rate-woocommerce-addon.php</code>. Il s'agit de renseigner le nom de ton plugin ainsi que d'autre informations le concernant (auteur, version, descriptions, etc.)</p>
+        <p>Attention ! Déclare ton plugin en anglais <span role="img" aria-label="english language">🇬🇧</span></p>
       </div>
 
       <!-- step 4 -->
@@ -57,109 +51,16 @@ Plugin Name: Partenariat Campus
       <!-- step 5 -->
       <div>
         <p>Rends ton plugin fonctionnel.</p>
-        <p>Ici, tu devrais <strong>enregistrer</strong> un nouveau shortcode et définir ce qu'il affiche.</p>
-        <p><a href="https://karac.ch/blog/creer-ses-propres-shortcodes-wordpress" target="_blank">exemple</a></p>
+        <p></p>
         <div class="astuce">
-          <p>Voici l'exemple d'un shortcode qui permet d'afficher un paragraphe
-          <quote>Hello World! I &hearts; you!</quote>
-          avec un shortcode <code>[helloworld]</code>.</p>
-          <code>
-<pre>
-function HelloWorldShortcode() {
-    return '&lt;p&gt;Hello World! I &amp;hearts; you!&lt;/p&gt;';
-}
-add_shortcode('helloworld', 'HelloWorldShortcode');
-</pre>
-          </code>
+          <p>Tu peux trouver le snippet PHP </p>
       </div>
     </div>
 
     <!-- step 6 -->
     <div>
-      <p>Vérifie que ton plugin fonctionne. Ajoute le shortcode <code>[partenariat-campus]</code> dans plusieurs articles.</p>
-      <p>Si cela fonctionne, bravo ! Tu viens de créer un extension WordPress ! Si tu as envie de continuer, allons-y !</p>
+      <p>Vérifie que ton plugin fonctionne.</p>
     </div>
-    <div>
-      <p>Ajoute une mise en page et un logo du campus.</p>
-      <p>Dans le dossier de ton extension crée le ficher <code>style.css.</code> Ensuite ajoute un dossier <code>images.</code> Mets le logo dans le dossier images.</p>
-    </div>
-    <div>
-      <p>Charge le fichier style.css dans la partie head de la page</p>
-      <code>
-<pre>
-function partenariat_campus_style() {
-  wp_enqueue_style( 'partenariat-campus-stylesheet', plugins_url( 'partenariat-campus/style.css' ) );
-}
-add_action( 'wp_enqueue_scripts', 'partenariat_campus_style' );
-</pre>
-      </code>
-    <p><code>plugins_url( 'partenariat-campus/style.css' )</code><br> correspond à <br><code>http(s)://mon-adresse-du-site/wp-content/plugins/partenariat-campus/style.css</code></p>
-    </div>
-    <div>
-      <p>Ajoute une image</p>
-      <p >Quelle est l'adresse to ton image ?</p>
-      <p class="astuce"><code>plugins_url( 'partenariat-campus/images/logo.png' )</code><br> correspond à <br><code>http(s)://mon-adresse-du-site/wp-content/plugins/partenariat-campus/images/logo.png</code></p>
-    </div>
-   <!--  <div>
-      <p>Et si on voulait pouvoir changer le contenu d'un shortcode via Customizer ? Dans ton plugin enregistre un nouveau champ de customizer.</p>
-      <code>
-<pre>
-function partenariat_simplon_infoflash( $wp_customize ) {
-  $wp_customize->add_section( 'simplon_shortcode', array(
-    'title'       => 'Info Flash',
-    'description' => 'Le text à reproduire vie shortcode',
-    'priority'        => 130
-  ) );
-  $wp_customize->add_setting( 'infoflash_shortcode', array(
-    'type' => 'option',
-    'default' => '',
-    'sanitize_callback' => 'wp_kses_post'
-  ) );
-
-  $wp_customize->add_control( 'infoflash_shortcode', array(
-    'label' => 'Shortcode Personnalisé',
-    'type' => 'textarea',
-    'section' => 'simplon_shortcode',
-  ) );
-}
-add_action( 'customize_register', 'partenariat_simplon_infoflash' );  
-</pre>       
-      </code>
-    </div>
-    <div>
-      <p>Vérifie que le champ "Info Flash" est bien présent dans ton Customizer.</p>
-    </div>
-    <div>
-      <p>Remplis le champ Shortcode Personnalisé et clique "Publier". Est-ce bien enregistré ?</p>
-    </div>
-    <div>
-      <p>Ajoute un nouveau shortcode 'simplon-infoflash' (comme dans step 5)</p>
-    <code class="astuce">
-<pre>
-function simplonInfoflashShortcode() {
-  return '';
-}
-add_shortcode( 'simplon-infoflash', 'simplonInfoflashShortcode' );
-</pre>
-      </code>      
-    </div>
-    <div>
-      <p>Modifie <code>simplonInfoflashShortcode()</code> pour que le contenu du champ
-       "Info Flash" soit affiché.</p>
-      <code>
-<pre>
-if ( ! function_exists( 'simplonInfoflashShortcode' ) ) {
-  function simplonInfoflashShortcode() {
-    return '&lt;p class="simplon-infoflash">' . get_option( 'infoflash_shortcode' ) . '&lt;/p>';
-  }
-}
-add_shortcode( 'simplon-infoflash', 'simplonInfoflashShortcode' );
-</pre>
-      </code> 
-    </div>
-    <div>
-      <h2>Yay ! Bravo !</h2>
-    </div> -->
   </div>
     <!-- built files will be auto injected -->
   </body>

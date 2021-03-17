@@ -1,25 +1,17 @@
 <template>
   <div id="app">
-    <header>
-      <img src="./assets/logo.svg" alt="logo WordPress">
-      <h1>Création d'une Extension WordPress </h1>
-      <p>Step by Step</p>
-    </header>
     <main>
       <div class="intro">
       <div class="container">
-        <h2>La mise en situation</h2>
-        <p>Le Campus Foderie de l'Image est le partenaire de votre client.</p>
-        <p>La direction du campus souhaiterait que dans chaque article publié, on trouve la mention suivante :</p>
-        <blockquote>La publication de cet article est possible grâce à notre partenaire <a href="https://www.campusfonderiedelimage.org/">Campus Fonderie de l'Image.</a> Le Campus forme aux métiers de la communication numérique, du design graphique et du management de projets multimédia.</blockquote>
-        <p>Ce texte devrait apparaître dans l’article, soit tout au début, soit vers la fin, soit quelque part au milieu. Son placement devrait varier d’un article à l’autre. Il faut prévoir une mise en page pour le mettre en avant. (Fond foncé, bordure, ombre portée, etc.) On devrait aussi afficher le logo du Campus.</p>
-        <h2>Solution</h2>
-        <p>Tu as proposé au client une solution utilisant <em>un shortcode.</em> Le texte souhaité va apparaître partout où le shortcode <code>[partenariat-campus]</code> est utilisé.</p>
-        <p>Ton extension va alors <strong>définir et activer</strong> un nouveau shortcode. Nous allons appeler notre extension <code>partenariat-campus.</code></p>
+        <h1>Création d'une Extension WordPress Step by Step</h1>
+        <h2>Problème :</h2>
+       
+        <p class="problem"><img src="./assets/rates.png" alt="screenshot" width="200">Par défaut, WooCommerce affiche toutes les méthodes d'expédition qui correspondent au contenu du panier. Cela signifie que la livraison gratuite est affichée avec le tarif forfaitaire. Ceci peut prêter à confusion.</p>
+        <h2>Solution :</h2>
+        <p class="solution"><img src="./assets/rates.png" alt="screenshot" width="200">Ton team développe une extension WordPress qui permettera de masquer toutes les autres méthodes et d'afficher uniquement la livraison gratuite, si cette dernière s'applique au panier.</p>
       </div>
     </div>
       <div class="container">
-        <!-- <p><img src="./assets/scr-simplon.png" alt="screenshot"></p> -->
         <todo-list />
       </div>
     </main>
@@ -38,9 +30,14 @@ export default {
 </script>
 
 <style>
+:root {
+  --brand: #db03b4;
+  --completed: mediumblue;
+}
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  margin-top: 0;
 }
 html {
   font-size: 112.5%;
@@ -49,8 +46,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   color: #212121;
-  font-family: Poppins, sans-serif;
+  font-family: Rubik, sans-serif;
   margin: 0;
+  line-height: 1.8;
 }
 
 ::-webkit-scrollbar {
@@ -73,33 +71,6 @@ code {
   font-size: 18px;
 }
 
-header {
-  padding: 6rem 1.5rem;
-  background-color: #212121;
-
-  text-align: center;
-  color: white;
-  position: relative;
-  overflow: hidden;
-  z-index: -1;
-}
-header:before {
-  content: "";
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-image: url("assets/devs.jpg");
-  background-size: cover;
-  background-position: center center;
-  opacity: 0.6;
-  z-index: -2;
-}
-
-#app {
-}
-
 img {
   display: block;
   margin: 0 auto 15px auto;
@@ -113,14 +84,25 @@ main {
   margin: 0 auto;
 }
 .intro {
-  padding: 1.5rem 0;
-  background: #212121;
+  padding: 6rem 1rem 1.5rem;
+  background: var(--completed);
   color: white;
 }
 #fulllist {
   display: none!important;
 }
 a {
-  color: #41b883;
+  color: var(--brand);
+}
+.intro p {
+  overflow: hidden;
+}
+.problem img {
+  float: right;
+  margin-left: 1rem;
+}
+.solution img  {
+  float: left;
+  margin-right: 1rem;
 }
 </style>

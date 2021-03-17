@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>Step by Step</h2>
       <div class="todo-list">
         <!-- Loop Over All Todos -->
         
@@ -11,19 +10,19 @@
           <label class="material-checkbox">
             <input type="checkbox" v-model="td.completed">
             <span></span>
-            <div class="text" :class="{completed: td.completed}" v-html="td.text"></div>
+            <div class="text" :class="{completed: td.completed}">
+              <div v-html="td.text" />
+              <template v-for="(child, index) in td.children" >
+                <div :key="index">
+                  <details v-if="child.astuce">
+                      <summary>Astuce</summary>
+                      <div v-html="child.content"></div>
+                    </details>
+                  <div v-else v-html="child.content"></div>
+                </div>
+              </template>
+            </div>
           </label>          
-          <template v-for="(child, index) in td.children" >
-          <div :key="index">
-             <details v-if="child.astuce">
-                <summary>Astuce</summary>
-                <div v-html="child.content"></div>
-              </details>
-              <div v-else v-html="child.content"></div>
-              </div>
-          </template>
-          
-      
       </div>
     </div>
     <div id="wapuu0" :class="currentWapuu === 0 ? 'active' : 'idle'"><img src="../assets/wapuu0.png"></div>
@@ -38,7 +37,8 @@
     <div id="wapuu9" :class="currentWapuu === 9 ? 'active' : 'idle'"><img src="../assets/wapuu9.png"></div>
 
     <footer>
-      <span>{{ remaining }} steps to go.</span>
+      <span v-if="remaining">{{ remaining }} step(s) to go</span>
+      <span v-else>🎉 Yay !!! 🎉</span>
     </footer>
   </div>
 </template>
@@ -108,7 +108,6 @@ export default {
 
 <style scoped>
 
-
 .container {
   min-height: 300px;
   display: flex;
@@ -122,26 +121,30 @@ footer {
   left: 0;
   right: 0;
   padding: .5rem;
-  background: #41b883;
+  background: var(--brand);
   color: #fff;
+  font-size: 2rem;
 }
 
 .todo-list {
   padding: 8px 0 64px;
   transition: 0.4s;
+  margin-top: 2rem;
 }
 
 .todo-list .list:hover {
-  box-shadow: inset 0 0 0 2px #41b883, 0 5px 15px rgba(0,0,0,.15);
+  box-shadow: inset 0 0 0 4px var(--brand), 0 5px 15px rgba(0,0,0,.15);
 }
 
 .todo-list .list {
   position: relative;
-  align-items: center;
-  padding: 1rem;
-  box-shadow: inset 0 0 0 2px transparent, 0 5px 15px rgba(0,0,0,.15);
+  padding: 2rem 1rem;
+  box-shadow: inset 0 0 0 4px transparent, 0 5px 15px rgba(0,0,0,.15);
   margin-bottom: 1rem;
   transition: 0.4s;
+}
+.todo-list .completed {
+  opacity: .6;
 }
 .todo-list .list {
   display: none;
@@ -158,13 +161,12 @@ footer {
   transition: 0.4s;
 }
 
-.todo-list .list .text.completed {
-  color: #41b883;
+.todo-list .list .text.completed,
+.todo-list .list.inter .text.completed {
+  color: var(--completed);
 }
 
-.todo-list .list.inter .text.completed {
-  color: mediumblue;
-}
+
 .todo-list .list.inter:hover {
   box-shadow: inset 0 0 0 2px mediumblue, 0 5px 15px rgba(0,0,0,.15);
 }
@@ -231,7 +233,6 @@ label {
   color: rgba(0, 0, 0, 0.87);
   cursor: pointer;
   display: flex;
-  align-items: center;
 }
 
 .material-checkbox > input {
@@ -249,7 +250,6 @@ label {
   outline: none;
   opacity: 0;
   transform: scale(1);
-  -ms-transform: scale(0); /* Graceful degradation for IE */
   transition: opacity 0.5s, transform 0.5s;
 }
 
@@ -276,15 +276,16 @@ label {
   transition: border-color 0.5s, background-color 0.5s;
 }
 .material-checkbox > input + span {
+  margin-top: .75rem;
   line-height: 1;
 }
 .material-checkbox > input:checked + span::before {
-  border-color: #41b883;
-  background-color: #41b883;
+  border-color: var(--brand);
+  background-color: var(--brand);
 }
 
 .material-checkbox > input:active + span::before {
-  border-color: #41b883;
+  border-color: var(--brand);
 }
 
 .inter .material-checkbox > input:checked + span::before {
@@ -360,10 +361,9 @@ label {
   position: absolute;
   top: 0;
   right: 0;
-  background: #41b883;
+  background: var(--completed);
   padding: 4px;
   color: white;
-  font-size: 60%;
 }
 .inter .step {
   background: mediumblue;
