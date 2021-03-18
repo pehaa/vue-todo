@@ -4,11 +4,12 @@
       <div class="intro">
       <div class="container">
         <h1>Création d'une Extension WordPress Step by Step</h1>
+         
         <h2>Problème :</h2>
-       
-        <p class="problem"><img src="./assets/rates.png" alt="screenshot" width="200">Par défaut, WooCommerce affiche toutes les méthodes d'expédition qui correspondent au contenu du panier. Cela signifie que la livraison gratuite est affichée avec le tarif forfaitaire. Ceci peut prêter à confusion.</p>
+      <img src="./assets/rates.png" alt="screenshot" width="300">
+        <p class="problem">Par défaut, WooCommerce affiche toutes les méthodes d'expédition qui correspondent au contenu du panier. Cela signifie que la livraison gratuite est affichée avec le tarif forfaitaire. Ceci peut prêter à confusion.</p>
         <h2>Solution :</h2>
-        <p class="solution"><img src="./assets/rates.png" alt="screenshot" width="200">Ton team développe une extension WordPress qui permettera de masquer toutes les autres méthodes et d'afficher uniquement la livraison gratuite, si cette dernière s'applique au panier.</p>
+        <p class="solution">Ton team développe une extension WordPress qui permettera de masquer toutes les autres méthodes et d'afficher uniquement la livraison gratuite, si cette dernière s'applique au panier.</p>
       </div>
     </div>
       <div class="container">
@@ -73,8 +74,14 @@ code {
 
 img {
   display: block;
-  margin: 0 auto 15px auto;
+  margin: 0 auto 1rem;
   max-width: 100%;
+}
+@media (min-width: 600px) {
+  img {
+    float: right;
+    margin-left: 1rem;
+  }
 }
 main {
     background: white;
@@ -94,15 +101,9 @@ main {
 a {
   color: var(--brand);
 }
-.intro p {
+.intro  {
   overflow: hidden;
 }
-.problem img {
-  float: right;
-  margin-left: 1rem;
-}
-.solution img  {
-  float: left;
-  margin-right: 1rem;
-}
+
+
 </style>
